@@ -29,52 +29,31 @@ MINHASH_SEED = 42
 NON_ALPHA = re.compile("[^A-Za-z_0-9]")
 
 # %% ../nbs/00_core.ipynb 6
-def hash_content(idx: int, content: str, *, num_perm: int):
+def hash_content(
+    idx: int, # index of the document
+    content: str, # content of the document
+    *,
+    num_perm: int # number of permutations
+    ): # The MinHash signature and the index of the record.
     """
     Hash the content of a record using MinHash. This function should be
     used with multiprocessing and it scales well with the number of cores.
-    Parameters
-    ----------
-    idx : int
-        The index of the record.
-    content : str
-        The content to embed.
-    num_perm : int
-        The number of permutations to use in the MinHash object.
-    seed : int
-        The seed to use in the MinHash object.
-    Returns
-    -------
-    Dict[str, Any]
-        The MinHash signature and the index of the record.
-    Examples
-    --------
-    >>> result = hash_content(0, "Hello world!", num_perm=128)
-    >>> result["__id__"]
-    0
-    >>> result["__signature__"].shape
-    (128,)
-    >>> result["__signature__"].dtype
-    dtype('uint64')
     """
     m = MinHash(num_perm=num_perm, seed=MINHASH_SEED)
     m.update_batch([token.encode("utf-8") for token in {t for t in NON_ALPHA.split(content) if t}])
     return {"__signature__": m.hashvalues, "__id__": idx}
 
-def query_content(idx: int, signature: np.ndarray, *, index: MinHashLSH):
+# %% ../nbs/00_core.ipynb 8
+def query_content(
+    idx: int, # index of the document
+    signature: np.ndarray, # MinHash signature of the document
+    *,
+    index: MinHashLSH # The MinHashLSH index. It is shared across all processes when using multiprocessing with fork without copy.
+    ): # The query result.
     """
     Query the MinHashLSH index for the record. This function can be used with multiprocessing
     as long as the index is shared across processes.
-    Parameters
-    ----------
-    index : MinHashLSH
-        The MinHashLSH index. It is shared across all processes when using multiprocessing with fork without copy.
-    record : Dict[str, Any]
-        The record to query.
-    Returns
-    -------
-    Dict[str, Any]
-        The query result.
+    Parameters.
     """
     return {
         "__neighbors__": [
@@ -86,38 +65,46 @@ def query_content(idx: int, signature: np.ndarray, *, index: MinHashLSH):
         "__id__": idx,
     }
 
-def jaccard_similarity(s1: str, s2: str) -> float:
+# %% ../nbs/00_core.ipynb 9
+def jaccard_similarity(
+    s1: str, # The first string to compare.
+    s2: str # The second string to compare.
+    ) -> float: # The Jaccard similarity between the two strings.
     """
     Calculate the jaccard similarity between two code snippets.
-    Parameters
-    ----------
-    s1 : str
-        The first code snippet.
-    s2 : str
-        The second code snippet.
-    Returns
-    -------
-    float
-        The jaccard similarity between the two code snippets.
-    Examples
-    --------
-    >>> jaccard_similarity("a = 1", "a = 2")
-    0.3333333333333333
-    >>> jaccard_similarity("a = 1", "a = 1")
-    1.0
     """
     tokens1 = set([t for t in NON_ALPHA.split(s1) if t.strip()])
     tokens2 = set([t for t in NON_ALPHA.split(s2) if t.strip()])
     return len(tokens1 & tokens2) / max(1, len(tokens1 | tokens2))
 
-# %% ../nbs/00_core.ipynb 7
+# %% ../nbs/00_core.ipynb 11
 class BenchmarkCleaner:
-    def __init__(self, benchmarks, threshold = 0.5, num_perm = 128):
+    """
+    A class to clean the benchmark dataset.
+    """
+    def __init__(
+        self,
+        benchmarks: list, # The list of benchmarks to clean.
+        threshold: float = 0.5, # The threshold to use for the MinHashLSH index.
+        num_perm: int = 128 # The number of permutations to use for the MinHashLSH index.
+        ):
         self.benchmarks = benchmarks
         self.threshold = threshold
         self.num_perm = num_perm
     
-    def clean(self, ds, column):
+    def clean(
+        self,
+        ds: Dataset, # The dataset to clean.
+        column: str, # The column to clean.
+    ):
+        """
+        Clean the dataset. This function does the following:
+        1. Hash the content of the provided dataset using MinHash.
+        2. Iterate over the benchmark datasets and hash their content.
+        3. Query the MinHashLSH index for each record in the provided dataset against the benchmark datasets.
+        4. Filter out the records that have a high similarity with the benchmark datasets.
+        5. Return the cleaned dataset.
+        """
         start_time = time.time()
         DATA_SIZE = len(ds)
         ds = ds.map(
@@ -134,13 +121,17 @@ class BenchmarkCleaner:
             num_proc=os.cpu_count(),
             desc=f"Fingerprinting...",
         )
-        dup_ids = set()
+        dup_ids = set() # The set of duplicate ids that should be filtered out.
+        # Iterate over the benchmark datasets, hash their content and query the MinHashLSH index.
         for bm in self.benchmarks:
             globals()[bm["name"]] = MinHashLSH(
                 threshold=self.threshold,
                 num_perm=self.num_perm,
             )
+
+            # Load the benchmark dataset and the necessary splits
             benchmark_ds = load_dataset(bm["name"], split="+".join(bm["splits"]))
+            # remove unused columns
             columns_to_remove = [c for c in benchmark_ds.column_names if c not in bm["columns"]]
             benchmark_ds = benchmark_ds.remove_columns(columns_to_remove)
             benchmark_ds = benchmark_ds.map(
@@ -160,6 +151,8 @@ class BenchmarkCleaner:
                     with_indices=True,
                     desc=f"Fingerprinting...",
                 )
+            
+            # Update the global variable with the MinHashLSH index.
             with globals()[bm["name"]].insertion_session() as session:
                 for record in benchmark_ds:
                     session.insert(record["__id__"], LeanMinHash(seed=MINHASH_SEED, hashvalues=record["__signature__"]))
@@ -187,6 +180,7 @@ class BenchmarkCleaner:
                 desc=f"Filtering...",
             )
 
+            # Update the set of duplicate ids.
             for record in tqdm(
                 queried,
                 desc=f"Checking for false positives...",
@@ -202,20 +196,20 @@ class BenchmarkCleaner:
                     continue
                 dup_ids.add(record["__id__"])
 
-            duplicates = ds.filter(lambda x: x["__id__"] in dup_ids, num_proc=os.cpu_count())
-            final_data = ds.filter(
-                lambda idx: idx not in dup_ids,
-                input_columns=["__id__"],
-                num_proc=os.cpu_count(),
-                desc="Filtering duplicates...",
-            )
+        # Filter out the duplicate ids.
+        final_data = ds.filter(
+            lambda idx: idx not in dup_ids,
+            input_columns=["__id__"],
+            num_proc=os.cpu_count(),
+            desc="Filtering duplicates...",
+        )
 
-            FINAL_DATA_SIZE = len(final_data)
-            DUP_SIZE = DATA_SIZE - FINAL_DATA_SIZE
+        FINAL_DATA_SIZE = len(final_data)
+        DUP_SIZE = DATA_SIZE - FINAL_DATA_SIZE
 
-            logger.info(f"{'Data Number':<30}: {DATA_SIZE}")
-            logger.info(f"{'Duplicate Number':<30}: {DUP_SIZE}")
-            logger.info(f"{'Duplicate Rate':<30}: {DUP_SIZE / DATA_SIZE:.2%}")
-            logger.info(f"{'Total Time':<30}: {time.time() - start_time:.2f} seconds")
+        logger.info(f"{'Data Number':<30}: {DATA_SIZE}")
+        logger.info(f"{'Duplicate Number':<30}: {DUP_SIZE}")
+        logger.info(f"{'Duplicate Rate':<30}: {DUP_SIZE / DATA_SIZE:.2%}")
+        logger.info(f"{'Total Time':<30}: {time.time() - start_time:.2f} seconds")
 
-            return final_data
+        return final_data
