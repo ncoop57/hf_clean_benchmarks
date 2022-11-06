@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "hf_clean_benchmarks"
+  site-url: "https://ncoop57.github.io/hf_clean_benchmarks"
+  description: "This repository contains code for cleaning your training data of benchmark data to help combat data snooping."
+  repo-branch: main
+  repo-url: "https://github.com/ncoop57/hf_clean_benchmarks"
