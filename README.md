@@ -5,7 +5,9 @@ hf_clean_benchmarks
 
 This repository is heavily inspired by the [BigCode
 repository](https://github.com/bigcode-project/bigcode-analysis/tree/main/data_analysis/decontamination)
-and is mostly a refactoring of their code.
+and is mostly a refactoring of their code. Specifically, the main person
+who worked on this repository is [Chenghao
+Mou](https://github.com/ChenghaoMou) (Awesome work!).
 
 ## Install
 
