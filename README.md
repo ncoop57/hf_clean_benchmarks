@@ -15,6 +15,8 @@ pip install hf_clean_benchmarks
 
 ## How to use
 
+### Using the API
+
 First you need to specify which benchmarks you want to clean your data
 of. You can do this by creating dictionary with the benchmark name in
 huggingface’s datasets repository as the key and the name of the column
@@ -57,97 +59,16 @@ dataset = load_dataset("bigcode/the-stack-smol", data_dir="data/python", split="
 cleaned_dataset = cleaner.clean(dataset, column="content")
 ```
 
-    Using custom data configuration bigcode--the-stack-smol-7b51f8bde3058781
-    Found cached dataset json (/home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab)
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-4fd2cfc3b4de5200.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-fc2542430addd587.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-6392d69100e23b4d.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-0d3292750080cb93.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-6afff1885e50613e.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-104ea2cc6f3442af.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-72a54f5c4492a510.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-ee9cc1c7827d79da.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-3488f6818c7af1ad.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-c5a8413aee235821.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-a08800d076382467.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-a0cd8ee30b126602.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-d5e09a7fb87e6603.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-4c41edee4eb6dbaa.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-688ed0155e001274.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-22a890f1db3d21ce.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-de32b3101489684e.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-ca7e15fa845f8a95.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-a01213d0b7f7cf30.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-1436b8f8eca1b59d.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-0fcb0732c303db83.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-17074c59e0a706f1.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-b0921917f76b0dfb.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-0eec137a92a8e89d.arrow
-    Found cached dataset openai_humaneval (/home/nathan/.cache/huggingface/datasets/openai_humaneval/openai_humaneval/1.0.0/2955cebd73602e828fa8c0a424c594e5fab4ec863b316ca98f3d8fdb6a626e75)
-    Fingerprinting... #0:   0%|          | 0/41 [00:00<?, ?ex/s]
+    Checking for false positives...: 100%|██████████| 8780/8780 [00:34<00:00, 251.05it/s]
+    Checking for false positives...: 100%|██████████| 8805/8805 [07:34<00:00, 19.39it/s]
 
-
-    Fingerprinting... #0: 100%|██████████| 41/41 [00:00<00:00, 948.37ex/s]
-    Fingerprinting... #1: 100%|██████████| 41/41 [00:00<00:00, 994.37ex/s]
-    Fingerprinting... #2: 100%|██████████| 41/41 [00:00<00:00, 1062.57ex/s]
-    Fingerprinting... #3: 100%|██████████| 41/41 [00:00<00:00, 1155.12ex/s]
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-fc3e0cb7d1ddc538.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-b7b6ad43e14e4edd.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-6ecbb20fbf54244e.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-ae6bc8089f28c240.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-f46cfbce158b9737.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-18b0d3b6b555f746.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-07137246bd91e3ca.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-97fc64220d6591f6.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-fc8ead4530083014.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-38db9fe976626576.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-9a7ed648d7eb42cd.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-64a51e2aaa147ade.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00000_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00001_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00002_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00003_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00004_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00005_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00006_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00007_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00008_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00009_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00010_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5df9adaab043196b_00011_of_00012.arrow
-    Checking for false positives...: 100%|██████████| 8780/8780 [00:35<00:00, 250.67it/s]
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00000_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00001_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00002_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00003_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00004_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00005_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00006_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00007_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00008_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00009_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00010_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-7a68886039adbc07_00011_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00000_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00001_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00002_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00003_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00004_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00005_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00006_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00007_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00008_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00009_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00010_of_00012.arrow
-    Loading cached processed dataset at /home/nathan/.cache/huggingface/datasets/bigcode___json/bigcode--the-stack-smol-7b51f8bde3058781/0.0.0/e6070c77f18f01a5ad4551a8b7edfba20b8438b7cad4d94e6ad9378022ce4aab/cache-5396a87a269ac89c_00011_of_00012.arrow
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[11/06/22 07:56:05] </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Data Number                   : <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10000</span>                                      <a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">core.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py#216" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">216</span></a>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[11/06/22 10:34:43] </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Data Number                   : <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10000</span>                                      <a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">core.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py#210" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">210</span></a>
 </pre>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">                    </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Duplicate Number              : <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3948</span>                                       <a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">core.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py#217" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">217</span></a>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">                    </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Duplicate Number              : <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4033</span>                                       <a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">core.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py#211" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">211</span></a>
 </pre>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">                    </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Duplicate Rate                : <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">39.48</span>%                                     <a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">core.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py#218" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">218</span></a>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">                    </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Duplicate Rate                : <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">40.33</span>%                                     <a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">core.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py#212" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">212</span></a>
 </pre>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">                    </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Total Time                    : <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">37.11</span> seconds                              <a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">core.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py#219" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">219</span></a>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">                    </span><span style="color: #000080; text-decoration-color: #000080">INFO    </span> Total Time                    : <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">493.73</span> seconds                             <a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">core.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/nathan/projects/other/hf_clean_benchmarks/hf_clean_benchmarks/core.py#213" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">213</span></a>
 </pre>
 
 ``` python
@@ -156,5 +77,48 @@ cleaned_dataset
 
     Dataset({
         features: ['content', 'avg_line_length', 'max_line_length', 'alphanum_fraction', 'licenses', 'repository_name', 'path', 'size', 'lang', '__id__'],
-        num_rows: 6052
+        num_rows: 5967
     })
+
+### Using the CLI
+
+First you need to specify which benchmarks you want to clean your data
+of. You can do this by creating a json file with the benchmark name in
+huggingface’s datasets repository as the key and the name of the column
+containing the benchmark data as the value. For example, if you want to
+clean your data of the `HumanEval` and `LAMBADA` benchmarks, you would
+do the following:
+
+file: `benchmarks.json`
+
+``` json
+[
+    {
+        "name": "openai_humaneval",
+        "splits": ["test"],
+        "columns": ["prompt", "canonical_solution", "test"],
+    },
+    {
+        "name": "lambada",
+        "splits": ["test"],
+        "columns": ["text"],
+    },
+]
+```
+
+You then pass this json file to the
+[`clean_dataset`](https://ncoop57.github.io/hf_clean_benchmarks/cli.html#clean_dataset)
+command. This command will download the benchmarks and construct the
+suffix array for each benchmark. You can then use the `clean` command to
+clean a huggingface dataset. For example:
+
+``` sh
+clean_dataset \
+    --dataset_name bigcode/the-stack-smol \
+    --column_name content \
+    --benchmark_configs_path benchmarks.json \
+    --output_path /tmp/test.jsonl \
+    --data_dir data/python \
+    --dataset_split train \
+    --save_json
+```
