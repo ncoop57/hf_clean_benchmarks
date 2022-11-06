@@ -19,6 +19,7 @@ from tqdm.auto import tqdm
 
 # %% ../nbs/00_core.ipynb 3
 multiprocessing.set_start_method("fork", force=True)
+logging.getLogger("datasets").setLevel(logging.ERROR)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(RichHandler(rich_tracebacks=True))
